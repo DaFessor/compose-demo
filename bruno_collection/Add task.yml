@@ -1,0 +1,22 @@
+info:
+  name: Add task
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:8080/api/tasks
+  body:
+    type: json
+    data: |-
+      {
+        "name": "First task",
+        "description": "Make this work!"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

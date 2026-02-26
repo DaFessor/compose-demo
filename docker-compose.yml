@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:17-alpine
+    container_name: task-postgres
+    environment:
+      POSTGRES_DB: taskdb
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpass123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - task-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U taskuser -d taskdb" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Spring Boot Task Service
+  task-service:
+    build:
+      context: ./task-service
+      dockerfile: Dockerfile
+    container_name: task-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/taskdb
+      SPRING_DATASOURCE_USERNAME: taskuser
+      SPRING_DATASOURCE_PASSWORD: taskpass123
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - task-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  task-network:
+    driver: bridge

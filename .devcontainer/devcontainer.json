@@ -1,0 +1,55 @@
+{
+    "name": "Task Service Java Development",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-spring-boot-dashboard",
+                "vscjava.vscode-spring-initializr",
+                "vmware.vscode-spring-boot",
+                "pivotal.vscode-boot-dev-pack",
+                "redhat.java",
+                "vscjava.vscode-maven",
+                "ms-azuretools.vscode-docker",
+                "donjayamanne.githistory",
+                "mhutchie.git-graph",
+                "codezombiech.gitignore",
+                "docker.docker"
+            ],
+            "settings": {
+                "java.configuration.runtimes": [
+                    {
+                        "name": "JavaSE-21",
+                        "path": "/usr/local/openjdk-21"
+                    }
+                ],
+                "java.server.launchMode": "Standard",
+                "maven.executable.path": "/usr/bin/mvn"
+            }
+        }
+    },
+    "forwardPorts": [
+        8080,
+        5432
+    ],
+    "portsAttributes": {
+        "8080": {
+            "label": "Task Service",
+            "onAutoForward": "notify"
+        },
+        "5432": {
+            "label": "PostgreSQL",
+            "onAutoForward": "silent"
+        }
+    },
+    "postCreateCommand": "doas chgrp wheel /var/run/docker.sock && cd task-service && mvn dependency:resolve",
+    "remoteUser": "vscode",
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ]
+}

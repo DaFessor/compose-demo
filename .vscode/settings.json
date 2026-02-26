@@ -1,0 +1,16 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.hotCodeReplace": "auto",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.formatOnSave": true,
+    "java.saveActions.organizeImports": true,
+    "spring-boot.ls.checkJVM": false
+}
