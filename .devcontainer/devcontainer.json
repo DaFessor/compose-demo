@@ -24,7 +24,7 @@
                 "java.configuration.runtimes": [
                     {
                         "name": "JavaSE-21",
-                        "path": "/usr/local/openjdk-21"
+                        "path": "/usr/lib/jvm/java-21-openjdk"
                     }
                 ],
                 "java.server.launchMode": "Standard",
@@ -47,6 +47,7 @@
         }
     },
     "postCreateCommand": "doas chgrp wheel /var/run/docker.sock && cd task-service && mvn dependency:resolve",
+    "postAttachCommand": "doas chgrp wheel /var/run/docker.sock",
     "remoteUser": "vscode",
     "mounts": [
         "source=${localEnv:HOME}${localEnv:USERPROFILE}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
