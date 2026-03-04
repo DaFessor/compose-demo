@@ -46,7 +46,6 @@
             "onAutoForward": "silent"
         }
     },
-    "postCreateCommand": "doas chgrp wheel /var/run/docker.sock",
     "postAttachCommand": "doas chgrp wheel /var/run/docker.sock",
     "remoteUser": "vscode",
     "mounts": [
