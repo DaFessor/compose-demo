@@ -13,12 +13,12 @@ RUN echo "permit nopass :wheel" > /etc/doas.conf && \
     chown -c root:root /etc/doas.conf && \
     chmod -c 0400 /etc/doas.conf
 
-USER vscode
-
 ENV MAVEN_HOME=/usr/share/java/maven-3
-ENV MAVEN_CONFIG=/home/vscode/.m2
+ENV MAVEN_CONFIG=/workspaces/composedemo/.mvn
 
 # Set up Maven settings
-RUN mkdir -p /home/vscode/.m2 && chown -R vscode:vscode /home/vscode/.m2
+RUN mkdir -p /workspaces/composedemo/.m2 && chown -R vscode:vscode /workspaces/composedemo/.m2
+
+USER vscode
 
 ENTRYPOINT [ "sh" ]

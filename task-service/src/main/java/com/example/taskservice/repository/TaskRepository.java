@@ -14,7 +14,7 @@ import com.example.taskservice.entity.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    Optional<@NonNull Task> findByName(@NonNull String name);
+    Optional<Task> findByName(@NonNull String name);
 
     @Query("SELECT t FROM Task t WHERE LOWER(t.name) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<Task> searchByName(@Param("searchTerm") String searchTerm);
