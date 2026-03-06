@@ -7,7 +7,7 @@ RUN apk add --no-cache maven openjdk21-jdk
 # Copy the source code and Maven resources
 COPY ./task-service /build/task-service
 COPY ./.m2 /build/.m2
-COPY ./.mvn /build/.mvn
+RUN mkdir -p /build/.mvn && echo "-Dmaven.repo.local=/build/.m2/repository" > /build/.mvn/maven.config
 
 # Build the application
 RUN ls -al /build && cd /build/task-service && mvn -f pom.xml -Dmaven.repo.local=/build/.m2/repository clean package -DskipTests
